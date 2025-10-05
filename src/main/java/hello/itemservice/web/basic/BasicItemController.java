@@ -4,6 +4,7 @@ import hello.itemservice.domain.item.Item;
 import hello.itemservice.domain.item.ItemRepository;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -70,6 +71,7 @@ public class BasicItemController {
 //         return "basic/item"; // 저장하고 브라우저에서 새로고침을 하면 마지막으로 요청한 요청이 한번 더 보내지므로 무한 Post요청이 들어옴 해결책은 PRG 패턴
         return "redirect:/basic/items/" + item.getId();
     }
+
     @PostMapping("/add")
     public String addItemV6(Item item, RedirectAttributes redirectAttributes) {
         Item savedItem = itemRepository.save(item);
@@ -93,6 +95,13 @@ public class BasicItemController {
     public String edit(@PathVariable Long itemId, @ModelAttribute Item item) {
         itemRepository.update(itemId, item);
         return "redirect:/basic/items/{itemId}"; // 상품상세 조회 컨트롤러 호출함
+    }
+
+    @ResponseBody
+    @DeleteMapping("/{itemId}/edit")
+    public ResponseEntity<Void> delete(@PathVariable Long itemId) {
+        itemRepository.delete(itemId);
+        return ResponseEntity.ok().build(); // 상품목록 컨트롤러 호출함
     }
 
     /**

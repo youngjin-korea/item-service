@@ -39,6 +39,11 @@ public class ItemRepository {
         findItem.setQuantity(updateParam.getQuantity());
     }
 
+    public void delete(Long itemId) {
+        if (findById(itemId) == null) return;
+        store.remove(itemId);
+    }
+
     // test 코드에서 사용하기 위해 작성
     public void clearStore() {
         store.clear();

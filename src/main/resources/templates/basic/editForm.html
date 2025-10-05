@@ -49,6 +49,10 @@
                 </button>
             </div>
             <div class="col">
+                <button id="deleteBtn" class="w-100 btn btn-primary btn-lg" type="button" th:data-id="${item.id}">삭제
+                </button>
+            </div>
+            <div class="col">
                 <button class="w-100 btn btn-secondary btn-lg"
                         th:onclick="|location.href='@{/basic/items/{itemId}(itemId=${item.id})}'|"
                         onclick="location.href='item.html'"
@@ -58,5 +62,6 @@
         </div>
     </form>
 </div> <!-- /container -->
+<script th:src="@{/js/delete.js}"></script>
 </body>
 </html>
